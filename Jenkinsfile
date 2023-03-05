@@ -20,11 +20,11 @@ pipeline {
             }
         }
         stage('sonar analysis') {
-            // performing sonarqube analysis with "withSonarQubeENV(<Name of Server configured in Jenkins>)"
-            withSonarQubeEnv('SONAR_CLOUD') {
-                // requires SonarQube Scanner for Maven 3.2+
-                //sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar'
-                sh 'mvn clean package sonar:sonar'
+            steps {
+                // performing sonarqube analysis with "withSonarQubeENV(<Name of Server configured in Jenkins>)"
+                withSonarQubeEnv('SONAR_CLOUD') {
+                    sh 'mvn clean package sonar:sonar -Dsonar.organization=springpetclinic1'
+                }
             }
         }
         stage('post build') {
